@@ -4,9 +4,10 @@ import { cookies } from 'next/headers'
 /**
  * Supabase client for Server Components / Route Handlers.
  * Handles session cookies via Next.js `cookies()`.
+ * In Next.js 15+, `cookies()` is async.
  */
-export function createSupabaseServerClient() {
-  const cookieStore = cookies()
+export async function createSupabaseServerClient() {
+  const cookieStore = await cookies()
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

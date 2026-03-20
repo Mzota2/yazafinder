@@ -4,7 +4,7 @@ import { useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
 type Match = {
@@ -104,9 +104,9 @@ export default function FindPage() {
                     </div>
 
                     <div className="mt-3">
-                      <Button asChild variant="outline" size="sm">
-                        <Link href={`/book/${m.id}`}>View & book</Link>
-                      </Button>
+                      <Link href={`/book/${m.id}`} className={buttonVariants({ variant: 'outline', size: 'sm' })}>
+                        View & book
+                      </Link>
                     </div>
                   </Card>
                 ))}

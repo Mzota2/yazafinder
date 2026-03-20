@@ -2,7 +2,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
-export default function LearnerSessionDetailsPage({ params }: { params: { id: string } }) {
+export default async function LearnerSessionDetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+
   return (
     <main className="min-h-[calc(100vh-2rem)] p-4">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-[300px_1fr] gap-4">
@@ -11,7 +17,7 @@ export default function LearnerSessionDetailsPage({ params }: { params: { id: st
             <CardTitle>Session info</CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground space-y-2">
-            <p>Session ID: {params.id}</p>
+            <p>Session ID: {id}</p>
             <p>Subject: Calculus</p>
             <p>Status: active</p>
             <p>Timer: 00:42:18</p>

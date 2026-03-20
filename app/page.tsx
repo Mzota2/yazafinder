@@ -1,7 +1,9 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { Bot, CalendarDays, CreditCard, MessagesSquare, ShieldCheck, Sparkles } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 const studentPhotos = [
@@ -22,12 +24,12 @@ export default function LandingPage() {
             <span className="font-semibold text-xl">YazaFinder</span>
           </div>
           <div className="flex items-center gap-2">
-            <Button asChild variant="outline">
-              <Link href="/login">Login</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/register">Get started</Link>
-            </Button>
+            <Link href="/login" className={buttonVariants({ variant: 'outline' })}>
+              Login
+            </Link>
+            <Link href="/register" className={buttonVariants()}>
+              Get started
+            </Link>
           </div>
         </div>
       </header>
@@ -47,12 +49,12 @@ export default function LandingPage() {
               your progress from your phone.
             </p>
             <div className="mt-7 flex flex-col sm:flex-row gap-3">
-              <Button asChild size="lg">
-                <Link href="/find">Find a Yaza</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/chatbot">Try AI chatbot</Link>
-              </Button>
+              <Link href="/find" className={buttonVariants({ size: 'lg' })}>
+                Find a Yaza
+              </Link>
+              <Link href="/chatbot" className={buttonVariants({ size: 'lg', variant: 'outline' })}>
+                Try AI chatbot
+              </Link>
             </div>
           </div>
 

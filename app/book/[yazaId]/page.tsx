@@ -1,11 +1,15 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
+import { useParams } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
-export default function BookPage({ params }: { params: { yazaId: string } }) {
+export default function BookPage() {
+  const params = useParams<{ yazaId: string }>()
+  const yazaId = params.yazaId
+
   const [subject, setSubject] = useState('')
   const [scheduledAt, setScheduledAt] = useState('')
   const [durationMinutes, setDurationMinutes] = useState(60)
@@ -27,7 +31,7 @@ export default function BookPage({ params }: { params: { yazaId: string } }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          yazaId: params.yazaId,
+          yazaId,
           subject,
           scheduledAt,
           durationMinutes,
@@ -55,7 +59,7 @@ export default function BookPage({ params }: { params: { yazaId: string } }) {
           <CardContent className="text-sm text-muted-foreground space-y-4">
             <form onSubmit={handleBook} className="flex flex-col gap-3">
               <p>
-                Selected Yaza ID: <span className="font-medium">{params.yazaId}</span>
+                Selected Yaza ID: <span className="font-medium">{yazaId}</span>
               </p>
 
               <div className="flex flex-col gap-1.5">

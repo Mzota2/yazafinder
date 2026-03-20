@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Could not generate embedding' }, { status: 500 })
     }
 
-    const supabase = createSupabaseServerClient()
+    const supabase = await createSupabaseServerClient()
 
     const { data, error } = await supabase.rpc('match_yazas', {
       query_embedding: embedding,
