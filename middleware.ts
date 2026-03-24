@@ -62,43 +62,43 @@ export async function middleware(request: NextRequest) {
   const isProtectedRoute = isLearnerRoute(pathname) || isYazaRoute(pathname) || isAdminRoute(pathname)
 
   // Redirect unauthenticated users on protected routes to login.
-  if (!user && isProtectedRoute) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
+  // if (!user && isProtectedRoute) {
+  //   return NextResponse.redirect(new URL('/login', request.url))
+  // }
 
   // Role-based routing (admin / yaza).
-  if (user) {
-    const { data: profile } = await supabase
-      .from('users')
-      .select('role')
-      .eq('auth_user_id', user.id)
-      .single()
+  // if (user) {
+  //   const { data: profile } = await supabase
+  //     .from('users')
+  //     .select('role')
+  //     .eq('auth_user_id', user.id)
+  //     .single()
 
-    const role = profile?.role
+  //   const role = profile?.role
 
-    // User exists in auth but has no public.users row yet:
-    // let them pass to profile setup so sync flow can complete.
-    if (!role && isProtectedRoute && pathname !== '/profile/setup') {
-      return NextResponse.redirect(new URL('/profile/setup', request.url))
-    }
+  //   // User exists in auth but has no public.users row yet:
+  //   // let them pass to profile setup so sync flow can complete.
+  //   if (!role && isProtectedRoute && pathname !== '/profile/setup') {
+  //     return NextResponse.redirect(new URL('/profile/setup', request.url))
+  //   }
 
-    if (isAdminRoute(pathname) && role !== 'admin') {
-      return NextResponse.redirect(new URL('/dashboard', request.url))
-    }
+  //   if (isAdminRoute(pathname) && role !== 'admin') {
+  //     return NextResponse.redirect(new URL('/dashboard', request.url))
+  //   }
 
-    if (isYazaRoute(pathname) && role !== 'yaza' && role !== 'admin') {
-      return NextResponse.redirect(new URL('/dashboard', request.url))
-    }
+  //   if (isYazaRoute(pathname) && role !== 'yaza' && role !== 'admin') {
+  //     return NextResponse.redirect(new URL('/dashboard', request.url))
+  //   }
 
-    if (isLearnerRoute(pathname) && role !== 'learner' && role !== 'admin') {
-      return NextResponse.redirect(new URL('/yaza/dashboard', request.url))
-    }
+  //   if (isLearnerRoute(pathname) && role !== 'learner' && role !== 'admin') {
+  //     return NextResponse.redirect(new URL('/yaza/dashboard', request.url))
+  //   }
 
-    // If an admin lands outside /admin, guide them to the admin dashboard.
-    if (role === 'admin' && !isAdminRoute(pathname)) {
-      return NextResponse.redirect(new URL('/admin/dashboard', request.url))
-    }
-  }
+  //   // If an admin lands outside /admin, guide them to the admin dashboard.
+  //   if (role === 'admin' && !isAdminRoute(pathname)) {
+  //     return NextResponse.redirect(new URL('/admin/dashboard', request.url))
+  //   }
+  // }
 
   return response
 }
