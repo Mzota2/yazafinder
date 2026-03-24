@@ -26,17 +26,17 @@ export default function LoginPage() {
     setSubmitting(true)
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      })
+      // const { error } = await supabase.auth.signInWithPassword({
+      //   email: email.trim(),
+      //   password,
+      // })
 
-      if (error) throw error
-      await fetch('/api/auth/sync-profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({}),
-      })
+      // if (error) throw error
+      // await fetch('/api/auth/sync-profile', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({}),
+      // })
       router.push('/profile/setup')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed')
