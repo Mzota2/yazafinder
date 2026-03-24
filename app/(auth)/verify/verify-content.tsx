@@ -45,6 +45,12 @@ export function VerifyPageContent() {
         return
       }
 
+      await fetch('/api/auth/sync-profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      })
+
       setStatus('success')
       router.push('/profile/setup')
     }

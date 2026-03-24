@@ -71,10 +71,16 @@ export async function middleware(request: NextRequest) {
     const { data: profile } = await supabase
       .from('users')
       .select('role')
-      .eq('id', user.id)
+      .eq('auth_user_id', user.id)
       .single()
 
     const role = profile?.role
+
+    // User exists in auth but has no public.users row yet:
+    // let them pass to profile setup so sync flow can complete.
+    if (!role && isProtectedRoute && pathname !== '/profile/setup') {
+      return NextResponse.redirect(new URL('/profile/setup', request.url))
+    }
 
     if (isAdminRoute(pathname) && role !== 'admin') {
       return NextResponse.redirect(new URL('/dashboard', request.url))

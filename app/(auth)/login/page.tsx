@@ -32,6 +32,11 @@ export default function LoginPage() {
       })
 
       if (error) throw error
+      await fetch('/api/auth/sync-profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      })
       router.push('/profile/setup')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed')

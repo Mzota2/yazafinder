@@ -45,6 +45,15 @@ export default function RegisterPage() {
       if (error) throw error
 
       if (data.session) {
+        await fetch('/api/auth/sync-profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            role,
+            fullName: fullName.trim(),
+            phone: phone.trim() || undefined,
+          }),
+        })
         router.push('/profile/setup')
         return
       }
